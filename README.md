@@ -1,24 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is a platform where nurses and doctors upload videos for their patients. Doctors and nurses can monitor their patients online by making necessary video assignments for their patients.
 
-Things you may want to cover:
+*Ruby version->2.5.1
+*Rails version->5.2.2
 
-* Ruby version
+run "bundle install" command for added gems.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+later rails start for project run.
