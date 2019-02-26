@@ -1,0 +1,63 @@
+<body>
+  <div class="wrapper ">
+    <%= render 'shared/sidebar'%>
+    <div class="main-panel">
+      <%= render 'shared/navbar'%>
+      <div class="content">
+
+        <div class="container-fluid">
+
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title ">Videolar</h4>
+                <p class="card-category">Video Bilgileri</p>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+
+                  <table class="table">
+                    <thead>
+                      <tr>
+                       <th>Video Başlığı</th>
+                       <th>Şeçenekler</th>
+
+                       <a class="btn btn-warning " href="<%=new_video_path%>" type="button">
+                        <i class="material-icons">videocam add</i>                 
+                        Video Ekle
+                      </a>
+
+                    </tr>
+
+                  </thead>
+                  <tbody>
+                    <% @videos.each do |video| %>
+                    <tr data-expanded="true">
+                      <td><%= video.title %></td>
+                      <td> 
+                        <a class="btn btn-warning" href="<%=edit_video_path(video)%>" type="button">
+                          <i class="material-icons">edit</i>                 
+                          Düzenle
+                        </a>
+
+                        <a class="btn btn-warning" href="<%=video_path(video)%>" type="button">
+                          <i class="material-icons">visibility</i>                 
+                          Göster
+                        </a>
+                      </td>
+
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= render 'shared/footer'%>
+    </div>
+  </div>
+</div>
+</body>
+

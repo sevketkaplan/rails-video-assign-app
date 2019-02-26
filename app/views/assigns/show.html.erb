@@ -1,0 +1,110 @@
+
+<link href="https://vjs.zencdn.net/7.3.0/video-js.css" rel="stylesheet">
+
+<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+<script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+
+
+<body>
+	<div class="wrapper ">
+		<%= render 'shared/sidebar'%>
+		<div class="main-panel">
+			<%= render 'shared/navbar'%>
+			<div class="content">
+
+				<div class="container-fluid">
+					<%= form_with(model: @assign, local: true) do |form| %>
+				
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header card-header-primary">
+								<h4 class="card-title "><%=(Video.find(@assign.video_id).title)%></h4>
+								<p class="card-category">Egzersiz Videoları</p>
+							</div>
+							<div class="card-body">
+
+								<div class="row">
+									<div class="col-md-7">
+										<video id="my-video" class="video-js" controls preload="auto" width="400px;" height="auto;"
+										poster="<%=url_for(Video.find(@assign.video_id).thumbnail)%>" data-setup="{}">
+										<source src="<%=url_for(Video.find(@assign.video_id).clip)%>" type='video/mp4'>
+										</video>
+									</div>
+									<div class="col-md-5">
+										<div class="card" id="card" style="display: none;">
+											<div class="card-header card-header-warning">
+												<h5 class="card-title">Kullanıcı Onay Formu</h5>
+											</div>
+											<div class="card-body">
+												<div class="form-group">
+													<div class="row">
+														<div class="col-md-5">
+
+															<table class="table">
+																<tbody>
+																	<tr>
+																		<td>
+																			<div class="form-check">
+																				<label style="padding-left: -50px;" class="form-check-label">
+																					<%= form.check_box :user_confirm, class: "form-check-input"%>
+																					<span class="form-check-sign">
+																						<span class="check"></span>
+																					</span>
+																				</label>
+																			</div>
+																		</td>
+																		<td><%= form.label :Videoyu_İzledim %></td>
+																	</tr>
+																</tbody>
+															</table>	
+														</div>
+														<div class="col-md-3">
+															<div class="field">
+																<%=form.submit "Kaydet", class: "btn btn-success"%>
+															</div>
+														</div>
+
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-7">
+										<div class="card" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+											<div class="card-header card-header-success">
+												<h5 class="card-title"><strong>Video Açıklaması</strong></h5>
+											</div>
+											<div class="card-body">
+												<%= (Video.find(@assign.video_id).description) %>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-5"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<%end%>
+				</div>
+				<%= render 'shared/footer'%>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var x = document.getElementById("card");
+		var vid= document.getElementById("my-video");
+		vid.onended = function() {
+			
+			if (x.style.display === "none") {
+				x.style.display = "block";
+			} else {
+				x.style.display = "none";
+			}
+		};
+	</script>
+	<script src="https://vjs.zencdn.net/7.3.0/video.js"></script>
+</body>
+

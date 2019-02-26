@@ -1,0 +1,74 @@
+
+
+<link href="https://vjs.zencdn.net/7.3.0/video-js.css" rel="stylesheet">
+
+<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+<script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+
+
+<body>
+	<div class="wrapper ">
+		<%= render 'shared/sidebar'%>
+		<div class="main-panel">
+			<%= render 'shared/navbar'%>
+			<div class="content">
+
+				<div class="container-fluid">
+
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header card-header-primary">
+								<h4 class="card-title "><%=@video.title%></h4>
+								<p class="card-category">Egzersiz Videoları</p>
+							</div>
+							<div class="card-body">
+
+								<div class="row">
+									<div class="col-md-7">
+										<video id="my-video" class="video-js" controls preload="auto" width="750" height="375"
+										poster="<%=url_for(@video.thumbnail)%>" data-setup="{}">
+										<source src="<%=url_for(@video.clip)%>" type='video/mp4'>
+										</video>
+									</div>
+									<div class="col-md-5">
+										<div class="card">
+											<div class="card-header card-header-warning">
+												<h5 class="card-title">Seçenekler</h5>
+											</div>
+											<div class="card-body">
+												<div class="row">
+													<a class="btn btn-warning btn-block" href="<%=edit_video_path(@video)%>" type="button">
+														<i class="material-icons">edit</i>
+														Düzenle
+													</a>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-md-7">
+										<div class="card" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+											<div class="card-header card-header-success">
+												<h5 class="card-title"><strong>Video Açıklaması</strong></h5>
+											</div>
+											<div class="card-body">
+												<%= @video.description %>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-5"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<%= render 'shared/footer'%>
+			</div>
+		</div>
+	</div>
+	<script src="https://vjs.zencdn.net/7.3.0/video.js"></script>
+</body>
+

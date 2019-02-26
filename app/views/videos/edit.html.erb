@@ -1,0 +1,98 @@
+<body>
+	<div class="wrapper ">
+		<%= render 'shared/sidebar'%>
+		<div class="main-panel">
+			<%= render 'shared/navbar'%>
+			<div class="content">
+
+				<div class="container-fluid">
+					<%= form_with(model: @video, local: true) do |form| %>
+					<% if @video.errors.any? %>
+					<div id="error_explanation">
+						<h2><%= pluralize(@video.errors.count, "error") %> prohibited this video from being saved:</h2>
+
+						<ul>
+							<% @video.errors.full_messages.each do |message| %>
+							<li><%= message %></li>
+							<% end %>
+						</ul>
+					</div>
+					<% end %>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header card-header-primary">
+								
+							</div>
+							<div class="card-body">
+
+								<div class="row">
+									<div class="col-md-3"></div>
+									<div class="col-md-6">
+										<div class="card">
+											<div class="card-header card-header-primary">
+												<h4 class="card-title">Video Kayıt İşlemi</h4>
+												<p class="card-category">Video Kayıt Formu</p>
+											</div>
+											<div class="card-body">
+												<form>
+
+													<div class="row">
+														<div class="col-md-12">
+															<div class="form-group">
+																<label class="bmd-label-floating">Video Başlığı</label>
+																<%= form.text_field :title, class: "form-control"%>
+															</div>
+														</div>
+													</div>
+
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-field">
+																<label class="bmd-label-floating">Video Resimi</label>
+																<%= form.file_field :thumbnail%>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-field">
+																<label class="bmd-label-floating">Video Dosyası</label>
+																<%= form.file_field :clip%>
+															</div>
+														</div>
+													</div>
+
+													<div class="row">
+														<div class="col-md-12">
+															<div class="form-group">
+																<label class="bmd-label-floating">Video Açıklaması</label>
+																<%= form.text_area :description, class: "form-control"%>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-12">
+															<div class="form-group">
+																<%= form.submit "Kaydet", class: "btn btn-success pull-right btn-block" %> <br>
+
+															</div>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<%end%>
+				</div>
+				<%= render 'shared/footer'%>
+			</div>
+		</div>
+	</div>
+	
+	<script src="https://vjs.zencdn.net/7.3.0/video.js"></script>
+</body>
+
+

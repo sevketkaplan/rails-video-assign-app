@@ -1,0 +1,114 @@
+<body>
+  <div class="wrapper ">
+    <%= render 'shared/sidebar'%>
+    <div class="main-panel">
+      <%= render 'shared/navbar'%>
+      <div class="content">
+
+        <div class="container-fluid">
+
+          <div class="col-md-12">
+            <div class="card card-plain">
+              <div class="card-header card-header-primary">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h4 class="card-title mt-0"> Kullanıcılara Atanan Videolar</h4></div>
+                    <div class="col-md-6">
+
+                      <form class="navbar-form">
+                        <div class="input-group no-border">
+                          <input type="text" id="search" onkeyup="myFunction()" value="" class="form-control" placeholder="Kullanıcı İsiminde Arayınız." style="text-color: white;">
+                          <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                            <i class="material-icons">search</i>
+                            <div class="ripple-container"></div>
+                          </button>
+                        </div>
+                      </form>  
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover" id="myTable">
+                      <thead class="">
+                        <th>Video Başlığı</th>
+                        <th>Atanan Kişi</th>
+                        <th>Atama Tarihi</th>
+                        <th>İzleme Durumu</th>
+                        <th>İzlediği Tarih</th>
+                        <th>Seçenekler</th>
+
+                      </thead>
+                      <tbody>
+                        <% @assigns.each do |assign| %>
+                        <tr data-expanded="true">
+                          <td><%=(Video.find(assign.video_id).title)%></td>
+                          <td><%=(User.find(assign.user_id).name_surname)%></td>
+                          <td><%=assign.created_at.strftime("%d/%m/%Y--%H:%M")%></td>
+                          <%if assign.user_confirm==true or assign.user_confirm==nil%>
+                          <td class="text-success">
+                            Videoyu İzlemiş.
+                          </td>
+                          <%else%>
+                          <td class="text-danger">
+                            Videoyu henüz izlememiş.
+                          </td>
+                          <%end%>
+                          <td><%=assign.updated_at.strftime("%d/%m/%Y--%H:%M")%></td>
+                          <td> 
+                            <a class="btn btn-warning" href="<%=edit_assign_path(assign)%>" type="button">
+                              <i class="material-icons">edit</i>                 
+                              Düzenle
+                            </a>
+
+                            <a class="btn btn-warning" href="<%=assign_path(assign)%>" type="button">
+                              <i class="material-icons">visibility</i>                 
+                              Göster
+                            </a>
+                          </td>
+
+                        </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%= render 'shared/footer'%>
+        </div>
+      </div>
+    </div>
+
+
+    <script>  
+      $(document).ready(function(){  
+       $('#search').keyup(function(){  
+        search_table($(this).val());  
+      });  
+       function search_table(value){  
+        $('#myTable tr').each(function(){  
+         var found = 'false';  
+         $(this).each(function(){  
+          if($(this).text().toUpperCase().indexOf(value.toUpperCase()) >= 0)  
+          {  
+           found = 'true';  
+         }  
+       });  
+         if(found == 'true')  
+         {  
+          $(this).show();  
+        }  
+        else  
+        {  
+          $(this).hide();  
+        }  
+      });  
+      }  
+    });  
+  </script>  
+</body>
+

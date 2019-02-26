@@ -1,0 +1,93 @@
+
+<link href="https://vjs.zencdn.net/7.3.0/video-js.css" rel="stylesheet">
+
+<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+<script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+
+
+<body>
+	<div class="wrapper ">
+		<%= render 'shared/sidebar'%>
+		<div class="main-panel">
+			<%= render 'shared/navbar'%>
+			<div class="content">
+
+				<div class="container-fluid">
+					<%= form_with(model: @assign, local: true) do |form| %>
+					<% if @assign.errors.any? %>
+
+					<div id="error_explanation">
+						<h2><%= pluralize(assign.errors.count, "error") %> prohibited this assign from being saved:</h2>
+
+						<ul>
+							<% @assign.errors.full_messages.each do |message| %>
+							<li><%= message %></li>
+							<% end %>
+						</ul>
+					</div>
+					<% end %>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header card-header-primary">
+								
+							</div>
+							<div class="card-body">
+
+								<div class="row">
+									<div class="col-md-3"></div>
+									<div class="col-md-6">
+										<div class="card">
+											<div class="card-header card-header-primary">
+												<h4 class="card-title">Arama İşlemleri</h4>
+												<p class="card-category">Kullanıcıya Video Atama İşlemi</p>
+											</div>
+											<div class="card-body">
+												<form>
+
+													<div class="row">
+														<div class="col-md-12">
+															<div class="form-group">
+																
+																<label class="bmd-label-floating">Video Başlığı</label>
+																 <%= form.collection_select :video_id, Video.all, :id, :title%>
+															</div>
+														</div>
+													</div>
+
+													<div class="row">
+														<div class="col-md-12">
+															<div class="form-group">
+
+																<label class="bmd-label-floating">Kullanıcı ID</label>
+																<%= form.text_field :user_id, value: params['user_id'], class: "form-control"%>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-12">
+															<div class="form-group">
+																<%= form.submit "Kaydet", class: "btn btn-success pull-right btn-block" %> <br>
+
+															</div>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<%end%>
+				</div>
+				<%= render 'shared/footer'%>
+			</div>
+		</div>
+	</div>
+	
+	<script src="https://vjs.zencdn.net/7.3.0/video.js"></script>
+</body>
+
+

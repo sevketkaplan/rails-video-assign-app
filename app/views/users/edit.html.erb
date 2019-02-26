@@ -1,0 +1,115 @@
+<body>
+  <div class="wrapper ">
+    <%= render 'shared/sidebar'%>
+    <div class="main-panel">
+      <%= render 'shared/navbar'%>
+      <div class="content">
+
+        <div class="container-fluid">
+
+          <div class="row">
+            <div class="col-md-3"><!--left col-->
+
+              <div class="text-center">
+                <%if @user.thumbnail.attached?%>
+                <img src="<%=url_for(@user.thumbnail)%>" style="width: 250px; height: 200px;" class="avatar img-circle img-thumbnail" alt="avatar">
+                <%else%>
+                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                <%end%>
+              </div>
+              <hr> 
+              <h3 class="text-center"><%=@user.name_surname%></h3>
+              <hr>
+              <%if current_user.id==@user.id || current_user.admin?%>
+              <%=link_to "Düzenle", edit_user_path(@user), class: "btn btn-primary btn-round btn-block"%>
+              <%end%>
+              <%if current_user.admin?%>
+              <%=link_to "Video Ata", new_assign_path(:user_id=> @user.id), class: "btn btn-primary btn-round btn-block"%>
+             
+              <% end -%>
+              <br>
+            </div><!--/col-3-->
+
+
+            <div class="col-sm-9">
+             <div class="card">
+              <div class="card-header card-header-tabs card-header-primary">
+                <div class="nav-tabs-navigation">
+                  <div class="nav-tabs-wrapper">
+                    <h4 class="card-title">Kullanıcı Bilgileri Güncelleme </h4>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="tab-pane active" id="profile">
+                   <hr>
+
+                   <%= form_for @user, url: edit_user_path do |f| %>
+                   <% if flash[:notice] %>
+                   <div class="notice"><%= flash[:notice] %>
+                   </div>
+                   <% end %> 
+
+                   <div class="field">
+                    <%= f.label :thumbnail%>
+                    <%= f.file_field :thumbnail%>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Adı Soyadı</label>
+                          <%= f.text_field :name_surname, class: "form-control" %>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Mail Adresi</label>
+                          <%= f.email_field :email, autofocus: true, class: "form-control", autocomplete: "email" %>
+                        </div>
+                      </div>
+                    </div><br>
+                    <div class="row">
+                      <div class="col-md-6">
+                       <div class="form-group">
+                        <label class="bmd-label-floating">Şifre</label>
+                        <% if @minimum_password_length %>
+                        <% end %>
+                        <%= f.password_field :password, autocomplete: "off",class: "form-control" %>
+                        <em>(<%= @minimum_password_length %> characters minimum)</em>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Tekrar Şifre</label>
+                        <%= f.password_field :password_confirmation, autocomplete: "off",class: "form-control" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="actions ggg">
+                  <%= f.submit "Kaydet", class: "btn btn-success"%>
+                </div>
+
+                <%end%>
+              </div><!--/tab-pane-->
+
+            </div><!--/tab-content-->
+
+          </div><!--/col-9-->
+        </div>
+      </div>
+
+    </div>
+    <%= render 'shared/footer'%>
+  </div>
+</div>
+
+</body>
+
+
+
+
+

@@ -1,0 +1,53 @@
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4" style="padding-top: 150px;">
+      <div class="card">
+        <div class="card-header card-header-primary">
+        
+
+          <h4 class="card-title" style="padding-top: 20px;">Giriş</h4>
+          <p class="card-category">Video Eğitim Paneline Giriş</p>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Kullanıcı Adı & Mail</label>
+                  <%= f.text_field :email, class: "form-control" %>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Password</label>
+                  <%= f.password_field :password, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+            <% if devise_mapping.rememberable? -%>
+            <div class="form-group">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            </div>
+            <% end -%>
+
+            <%= f.submit "Giriş Yap",class: "btn btn-primary btn-block" %>
+            <%= render "devise/shared/links" %>
+
+            <div class="clearfix"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>
+<% end %>

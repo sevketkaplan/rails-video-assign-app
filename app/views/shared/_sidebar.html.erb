@@ -1,0 +1,63 @@
+ <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+      -->
+      <div class="logo">
+        <a href="#" class="simple-text logo-normal">
+          Video Portal
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+
+          <li class="nav-item">
+            <a class="nav-link" href="<%=user_path(current_user.to_param)%>">
+              <i class="material-icons">person_pin</i>
+              <p>Profilim</p>
+            </a>
+          </li>
+
+
+
+          <%if current_user.admin?%>
+          <li class="nav-item">
+            <a class="nav-link" href="<%=videos_path%>">
+              <i class="material-icons">videocam</i>
+              <p>Videolar</p>
+            </a>
+          </li>          
+          
+
+          <li class="nav-item">
+            <a class="nav-link" href="<%=assigns_path%>">
+              <i class="material-icons">import_export</i>
+              <p>Atamalar</p>
+            </a>
+          </li>
+          <%end%>
+          <%if current_user.admin?%>
+          <li class="nav-item">
+            <a class="nav-link" href="<%=users_path%>">
+              <i class="material-icons">group</i>
+              <p>Kullanıcılar</p>
+            </a>
+          </li>
+          <%end%>
+
+          <% if user_signed_in? %>
+          <li class="nav-item ">
+            <a class="nav-link" href="<%=destroy_user_session_path%>"  data-method="delete">
+              <i class="material-icons">power_settings_new</i>
+              <p>Çıkış</p>
+            </a>
+          </li>
+          <% end %>
+
+
+
+
+        </ul>
+      </div>
+    </div>

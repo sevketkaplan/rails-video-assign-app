@@ -1,0 +1,132 @@
+<link href="https://vjs.zencdn.net/7.3.0/video-js.css" rel="stylesheet">
+
+<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+<script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+<body>
+  <div class="wrapper ">
+    <%= render 'shared/sidebar'%>
+    <div class="main-panel">
+      <%= render 'shared/navbar'%>
+      <div class="content">
+
+        <div class="container-fluid">
+
+          <br>
+          <div class="row">
+            <div class="col-md-3"><!--left col-->
+
+              <div class="text-center">
+                <%if @user.thumbnail.attached?%>
+                <img src="<%=url_for(@user.thumbnail)%>" style="width: 250px; height: 200px;" class="avatar img-circle img-thumbnail" alt="avatar">
+                <%else%>
+                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                <%end%>
+              </div>
+              <hr> 
+              <h3 class="text-center"><%=@user.name_surname%></h3>
+              <hr>
+              <%if current_user.id==@user.id || current_user.admin?%>
+              <%=link_to "Düzenle", edit_user_path(@user), class: "btn btn-primary btn-round btn-block"%>
+
+              <%= button_to "Hesabı sil", registration_path(@user), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary btn-round btn-block" %></p>
+              <%end%>
+              <%if current_user.admin?%>
+              <%=link_to "Video Ata", new_assign_path(:user_id=> @user.id), class: "btn btn-primary btn-round btn-block"%>
+              <%end%>
+
+              <br>
+            </div><!--/col-3-->
+
+
+            <div class="col-md-9">
+              <div class="card">
+                <div class="card-header card-header-tabs card-header-primary">
+                  <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+
+                      <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="nav-item">
+                          <a class="nav-link active" href="#profile" data-toggle="tab">
+                            <i class="material-icons">person_pin</i> Kullanıcı Bilgileri
+                            <div class="ripple-container"></div>
+                          </a>
+                        </li>
+                        <%if @user.admin==false or @user.admin==nil%>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#messages" data-toggle="tab">
+                            <i class="material-icons">videocam</i> Kullanıcı Videoları
+                            <div class="ripple-container"></div>
+                          </a>
+                        </li>
+                        <%end%>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="profile">
+                     <hr>
+                     <form class="form" action="##" method="post" id="registrationForm">
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label for="first_name"><h4><%=@user.name_surname%></h4></label>
+
+                          </div>
+                          <div class="col-md-6">
+                            
+
+                          </div>
+                        </div><br>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label for="first_name"><h4><%=@user.email%></h4></label>
+
+                          </div>
+                          <div class="col-md-6">
+                            <label for="first_name"><%=@user.password_mail%></label>
+
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                  <div class="tab-pane" id="messages">
+                    <hr>
+                    <% @assigns.each do |assign| %>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <img src="<%=url_for(Video.find(assign.video_id).thumbnail)%>" style="width: 600px; height: auto;" class="avatar img-circle img-thumbnail" alt="avatar">
+                        <br>
+                        <hr>
+                      </div>
+                      <div class="col-md-6 text-center">
+                        <h3><strong><%=link_to Video.find(assign.video_id).title, edit_assign_path(assign)%></strong></h3>
+                        <hr>
+                        <div class="card">
+
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <%= render 'shared/footer'%>
+  </div>
+</div>
+<script src="https://vjs.zencdn.net/7.3.0/video.js"></script>
+
+</body>
